@@ -4,11 +4,14 @@ EMP_RATE_PER_HR=20
 WORKING_DAYS=20
 FULL_TIME=1
 PART_TIME=2
+MAX_HRS_IN_MONTH=100
+totalWorkingHrs=0
+totalWorkingDays=0
 total_Salary=0
-
-for((D=1;D<=WORKING_DAYS;D++))
+while [[ $totalWorkingHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $WORKING_DAYS ]]
 do
-empCheck=$((RANDOM%3))
+	((totalWorkingDays++))
+	empCheck=$((RANDOM%3))
 case $empCheck in 
 	$FULL_TIME)
 		empHrs=12
@@ -20,9 +23,9 @@ case $empCheck in
 		empHrs=0
 		;;
 esac
-salary=$(( $empHrs*$EMP_RATE_PER_HR ))
-total_Salary=$(($total_Salary+$salary))
+totalWorkingHrs=$(( $totalWorkingHrs+$empHrs ))
 done
+total_Salary=$(($totalWorkingHrs*$EMP_RATE_PER_HR))
 
-echo "Salary per day:" $salary
-echo "Salary per month that is 20 working days:" $total_Salary
+echo "total working hours:" $totalWorkingHrs
+echo "Total salary for 20 days :" $total_Salary
