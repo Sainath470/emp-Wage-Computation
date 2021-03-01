@@ -8,11 +8,13 @@ empCheck=$((RANDOM%2))
 isPresent=1
 
 
-if [ $empCheck -eq $isPresent ]
-then
+case $empCheck in 
+	1)
 	salary=$(($EMP_RATE_PER_HR*$FULL_TIME))
 	echo $salary
-else
+	;;
+	0)
 	salary=$(($EMP_RATE_PER_HR*$PART_TIME))
 	echo $salary
-fi
+	;;
+esac
