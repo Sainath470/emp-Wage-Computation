@@ -10,7 +10,7 @@ totalWorkingHrs=0
 totalWorkingDays=0
 total_Salary=0
 
-
+declare -A dailyWage
 function work_Hours()
 {
 case $1 in 
@@ -41,12 +41,13 @@ do
 		empCheck=$((RANDOM%3))
 		empHrs=$( work_Hours $empCheck )
 		totalWorkingHrs=$(( $totalWorkingHrs+$empHrs ))
-		dailyWage[$totalWorkingDays]=$( emp_Wage $empHrs)
+		dailyWage["Day "$totalWorkingDays]=$( emp_Wage $empHrs)
 done
 
 total_Salary=$(($totalWorkingHrs*$EMP_RATE_PER_HR))
 
 echo "Total working hours:" $totalWorkingHrs
-
+echo All keys ${!dailyWage[@]}
 echo "Daily wage is: ${dailyWage[@]}"
+
 echo "Total salary for 20 days :" $total_Salary
